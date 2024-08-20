@@ -13,8 +13,6 @@ class Player(CircleShape):
         self.position = pygame.Vector2(x,y)
         self.rotation = 0
     
-    
-    
     # method of the player class
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)

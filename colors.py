@@ -1,5 +1,7 @@
 DEFAULT = "white"
 RED = "red"
 GREEN = "green"
-purple = "purple"
+PURPLE = "purple"
 BLACK = "black"
+BLUE = "blue"
+YELLOW = "yellow"
