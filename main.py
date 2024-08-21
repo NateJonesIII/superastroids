@@ -9,6 +9,7 @@ from pygame.locals import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from weapons import Shot
 
 # Set the working directory to the script's directory
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -35,6 +36,9 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
+    
+    Shot.containers = (shots, updatable, drawable)
     
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = updatable
@@ -61,7 +65,19 @@ def main():
         # Update all updatable objects    
         for obj in updatable:
             obj.update(dt)     
-    
+            
+        for asteroid in asteroids:
+            if asteroid.collide(player):
+                print("Game over!")
+                sys.exit()
+                
+        
+            for bullet in shots:
+                if asteroid.collide(bullet):
+                    bullet.kill()
+                    asteroid.split()
+                    
+                
         # black out screen   
         screen.fill(BLACK)
         
@@ -72,7 +88,7 @@ def main():
         # Update the display
         pygame.display.flip()
 
-        # 
+        # limit frames to FPS setting
         dt = FramePerSec.tick(FPS_NUM)/1000
 # running main module        
 if __name__ == "__main__":
